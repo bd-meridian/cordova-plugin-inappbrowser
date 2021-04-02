@@ -732,6 +732,9 @@ BOOL isExiting = FALSE;
     
     WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
     
+    configuration.Preferences.SetValueForKey(NSNumber.FromBoolean(true), new NSString("allowFileAccessFromFileURLs"));
+    configuration.Preferences.SetValueForKey(NSNumber.FromBoolean(true), new NSString("allowUniversalAccessFromFileURLs"));
+ 
     NSString *userAgent = configuration.applicationNameForUserAgent;
     if (
         [self settingForKey:@"OverrideUserAgent"] == nil &&
