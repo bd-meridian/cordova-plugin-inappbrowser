@@ -731,7 +731,13 @@ BOOL isExiting = FALSE;
     WKUserContentController* userContentController = [[WKUserContentController alloc] init];
     
     WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
-    
+ 
+ //allow local files   
+ 	WKPreferences *prefs = [[WKPreferences alloc]init];
+	[prefs setValue:@TRUE forKey:@"allowFileAccessFromFileURLs"];
+	[prefs setValue:@TRUE forKey:@"allowUniversalAccessFromFileURLs"];
+	configuration.preferences = prefs;
+ 
     NSString *userAgent = configuration.applicationNameForUserAgent;
     if (
         [self settingForKey:@"OverrideUserAgent"] == nil &&
