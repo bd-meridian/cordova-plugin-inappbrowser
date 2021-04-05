@@ -735,7 +735,6 @@ BOOL isExiting = FALSE;
     //allow local files
  	  WKPreferences *prefs = [[WKPreferences alloc]init];
    	[prefs setValue:@TRUE forKey:@"allowFileAccessFromFileURLs"];
-   	[prefs setValue:@TRUE forKey:@"allowUniversalAccessFromFileURLs"];
 	   configuration.preferences = prefs;
  
     configuration.Preferences.SetValueForKey(NSNumber.FromBoolean(true), new NSString("allowFileAccessFromFileURLs"));
