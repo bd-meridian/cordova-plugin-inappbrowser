@@ -732,14 +732,6 @@ BOOL isExiting = FALSE;
     
     WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
     
-    //allow local files
- 	  WKPreferences *prefs = [[WKPreferences alloc]init];
-   	[prefs setValue:@TRUE forKey:@"allowFileAccessFromFileURLs"];
-	   configuration.preferences = prefs;
- 
-    configuration.Preferences.SetValueForKey(NSNumber.FromBoolean(true), new NSString("allowFileAccessFromFileURLs"));
-    configuration.Preferences.SetValueForKey(NSNumber.FromBoolean(true), new NSString("allowUniversalAccessFromFileURLs"));
- 
     NSString *userAgent = configuration.applicationNameForUserAgent;
     if (
         [self settingForKey:@"OverrideUserAgent"] == nil &&
@@ -784,7 +776,7 @@ BOOL isExiting = FALSE;
     
     [self.view addSubview:self.webView];
     [self.view sendSubviewToBack:self.webView];
-    [self.webView.configuration.preferences setValue:@TRUE forKey:@"allowFileAccessFromFileURLs"];
+    
     
     self.webView.navigationDelegate = self;
     self.webView.UIDelegate = self.webViewUIDelegate;
@@ -1115,8 +1107,7 @@ BOOL isExiting = FALSE;
 - (void)navigateTo:(NSURL*)url
 {
     if ([url.scheme isEqualToString:@"file"]) {
-        NSURL* directoryURL = [url URLByDeletingLastPathComponent];
-        [self.webView loadFileURL:url allowingReadAccessToURL:directoryURL];
+        [self.webView loadFileURL:url allowingReadAccessToURL:url];
     } else {
         NSURLRequest* request = [NSURLRequest requestWithURL:url];
         [self.webView loadRequest:request];
